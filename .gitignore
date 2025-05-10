@@ -1,0 +1,20 @@
+.python-version
+*.pyc
+__pycache__/
+.idea/
+
+env
+.env
+.venv/
+venv/
+
+.python-version
+*.pyc
+__pycache__/
+.idea/
+
+# sqlite
+# db.sqlite3
+
+# extras
+readme-guide.md
