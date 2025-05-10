@@ -1,0 +1,19 @@
+<!--below: simply saying we want to extend the base.html file content-->
+{% extends 'base.html' %}
+
+{% block index_page_content %}
+<!-- see custom styles in base.html -->
+<main class="poppins-extralight">
+    <div
+        class="regular text-center py-6 bg-gray-800 text-white h-screen flex flex-col gap-y-4 items-center justify-center">
+        <h1 class="text-3xl">Fast Django Backend Template API Server</h1>
+        <a href="/api/docs">
+            <button class="px-10 py-3 border-[1px] border-gray-400 rounded-[10px] mt-4">
+                View API Documentation
+            </button>
+        </a>
+    </div>
+</main>
+
+
+{% endblock %}
