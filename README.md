@@ -88,7 +88,7 @@ You should see a welcome screen like the one below:
 
 The welcome screen is simply a Django template setup I built - TailwindCSS was used for styling.
 
-> **As at my last update, the template is complete enough to help bootstrap your project and give you a massive leap into development. It currently supports only sqlite. No docker and PostgreSQL for now, just straight-up with Sqlite.**
+> **As at my last update, the template is complete enough to help bootstrap your project and give you a massive leap into development. It currently supports only Sqlite. No Docker and PostgreSQL for now, just straight-up with Sqlite.**
 
 8. Explore your project and test the following domain end-points.
 
