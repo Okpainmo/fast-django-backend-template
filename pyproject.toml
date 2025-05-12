@@ -1,0 +1,29 @@
+[tool.black]
+# Maximum line length (from pylint's max-line-length)
+line-length = 100
+
+# Files and directories to exclude from formatting
+exclude = '''
+  # Exclude specific files and directories
+  (\/|\\)(
+    migrations   |  # ignore migrations
+    settings     |  # ignore settings folder
+    Dockerfile   |  # ignore Dockerfile
+    env          |  # ignore .env files
+    trash        |  # ignore trash folder
+    db.sqlite3   |  # ignore SQLite DB file
+    manage.py    |  # ignore manage.py
+    asgi.py      |  # ignore asgi.py
+    wsgi.py      |  # ignore wsgi.py
+    .gitignore   |  # ignore .gitignore files
+    .json        |  # ignore .json files
+    .md          |  # ignore markdown files
+    .docker.*    |  # ignore any .docker files
+  )
+'''
+
+# Set the string normalization to False (so we don't change string quotes or prefix f-strings)
+skip-string-normalization = true
+
+# Optional - specify target Python version (assuming Python 3.8 as the target version here)
+target-version = ['py38']

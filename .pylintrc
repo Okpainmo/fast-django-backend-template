@@ -1,0 +1,60 @@
+[MASTER]
+ignore=migrations,settings,Dockerfile,env,trash,db.sqlite3,manage.py,asgi.py,wsgi.py
+ignore-patterns=.*\.env$|.*\.gitignore$|.*\.json$|.*\.md$|.*\.docker.*$
+load-plugins=pylint_django
+
+[MESSAGES CONTROL]
+# Disable warnings that are noisy or not useful in Django context
+disable=
+    missing-docstring,
+    invalid-name,
+    too-few-public-methods,
+    no-member,
+    # no-self-use, - seems to be deprecated
+    too-many-arguments,
+    duplicate-code,
+    too-many-locals,
+    too-many-branches,
+    too-many-statements,
+    too-many-instance-attributes,
+    line-too-long,
+    too-many-public-methods,
+    protected-access,
+    unexpected-line-ending-format,
+    wrong-import-order, # approve
+    import-error, # approve
+    wildcard-import, # approve
+    ungrouped-imports, # approve
+    unused-import, # approve
+    bad-plugin-value, # approve
+    unused-wildcard-import, # approve
+    unused-argument, # approve
+    django-not-configured, # approve
+
+[DESIGN]
+max-args=10
+max-locals=25
+max-returns=10
+max-branches=15
+max-statements=50
+max-line-length=100
+
+[FORMAT]
+indent-string='    '
+expected-line-ending-format=LF
+
+[REPORTS]
+output-format=colorized
+reports=no
+score=yes
+
+[TYPECHECK]
+# Avoid errors from dynamically added Django fields/methods
+ignored-classes=AttributeDict,ValuesQuerySet,Manager,QuerySet,Model
+
+[IMPORTS]
+# Django imports are often unused but required
+known-third-party=django,rest_framework,ninja
+
+[LOGGING]
+logging-modules=logging
