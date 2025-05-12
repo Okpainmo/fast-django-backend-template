@@ -36,9 +36,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "domain__auth.apps.DomainAuthConfig",    
-    "domain__user.apps.DomainUserConfig",    
-    "domain__admin.apps.DomainAdminConfig",    
+    "domain__auth.apps.DomainAuthConfig",
+    "domain__user.apps.DomainUserConfig",
+    "domain__admin.apps.DomainAdminConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,7 +63,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, "templates") # setup for api home screen template rendering
+            os.path.join(BASE_DIR, "templates")  # setup for api home screen template rendering
         ],
         'APP_DIRS': True,
         'OPTIONS': {

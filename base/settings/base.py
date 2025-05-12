@@ -35,9 +35,9 @@ SECRET_KEY = os.getenv('JWT_SECRET')
 # Application definition
 
 INSTALLED_APPS = [
-    "domain__auth.apps.DomainAuthConfig",    
-    "domain__user.apps.DomainUserConfig",    
-    "domain__admin.apps.DomainAdminConfig",    
+    "domain__auth.apps.DomainAuthConfig",
+    "domain__user.apps.DomainUserConfig",
+    "domain__admin.apps.DomainAdminConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,7 +63,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             # os.path.join(BASE_DIR, "templates") # setup for api home screen template rendering
-            BASE_DIR.parent / "templates",
+            BASE_DIR.parent
+            / "templates",
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -120,17 +121,17 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # django email configuration
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 # SMTP server details - default configuration is suited for Zoho
-EMAIL_HOST=os.getenv("EMAIL_HOST")
-EMAIL_PORT=587
-EMAIL_USE_TLS=True # enable TLS for secure email
-EMAIL_HOST_USER=os.getenv("CONTROLLER_EMAIL")
-EMAIL_HOST_PASSWORD=os.getenv("EMAIL_APP_PASSWORD")
-DEFAULT_FROM_EMAIL=os.getenv("CONTROLLER_EMAIL")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True  # enable TLS for secure email
+EMAIL_HOST_USER = os.getenv("CONTROLLER_EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_APP_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("CONTROLLER_EMAIL")
 
 # AWS S3 shared credentials - same AWS application-user is used for all environment buckets
-AWS_ACCESS_KEY=os.getenv("AWS_ACCESS_KEY")
-AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")

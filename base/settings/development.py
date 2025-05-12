@@ -1,4 +1,4 @@
-from . base import *
+from .base import *
 
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -25,7 +25,6 @@ DATABASES = {
 }
 
 # dev AWS S3 setup
-AWS_BUCKET_NAME=os.getenv("AWS_BUCKET_NAME__DEV")
-AWS_BUCKET_REGION=os.getenv("AWS_BUCKET_REGION__DEV")
-AWS_S3__PUBLIC_FILE_BASE_URL=f"https://{AWS_BUCKET_NAME}.s3.amazonaws.com"
-
+AWS_BUCKET_NAME = os.getenv("AWS_BUCKET_NAME__DEV")
+AWS_BUCKET_REGION = os.getenv("AWS_BUCKET_REGION__DEV")
+AWS_S3__PUBLIC_FILE_BASE_URL = f"https://{AWS_BUCKET_NAME}.s3.amazonaws.com"
