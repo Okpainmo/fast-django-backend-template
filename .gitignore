@@ -5,6 +5,7 @@ __pycache__/
 
 # environments
 .env*
+.env
 .env.template
 .env.dev
 .env.staging
