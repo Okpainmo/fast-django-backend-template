@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+# load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / '.env')  # adjust as needed
+
 # Load the .env file
 load_dotenv()
 
@@ -25,13 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--#vo2^w0kw2qfr6a8fl=a$hpq2zxk9a77thj^_s!vsz5!sv&by'
+# SECRET_KEY = 'django-insecure--#vo2^w0kw2qfr6a8fl=a$hpq2zxk9a77thj^_s!vsz5!sv&by'
+SECRET_KEY = os.getenv('JWT_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -63,7 +62,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, "templates") # setup for api home screen template rendering
+            # os.path.join(BASE_DIR, "templates") # setup for api home screen template rendering
+            BASE_DIR.parent / "templates",
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -77,18 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'base.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -130,3 +118,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# django email configuration
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+# SMTP server details - default configuration is suited for Zoho
+EMAIL_HOST=os.getenv("EMAIL_HOST")
+EMAIL_PORT=587
+EMAIL_USE_TLS=True # enable TLS for secure email
+EMAIL_HOST_USER=os.getenv("CONTROLLER_EMAIL")
+EMAIL_HOST_PASSWORD=os.getenv("EMAIL_APP_PASSWORD")
+DEFAULT_FROM_EMAIL=os.getenv("CONTROLLER_EMAIL")
+
+# AWS S3 shared credentials - same AWS application-user is used for all environment buckets
+AWS_ACCESS_KEY=os.getenv("AWS_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
