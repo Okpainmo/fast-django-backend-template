@@ -3,18 +3,19 @@
 __pycache__/
 .idea/
 
+# environments
 env
-.env
+.env*
+.env.template
+.env.sample
+.env.dev
+.env.staging
+.env.production
 .venv/
 venv/
 
-.python-version
-*.pyc
-__pycache__/
-.idea/
-
 # sqlite
-# db.sqlite3
+db.sqlite3
 
 # extras
 readme-guide.md
