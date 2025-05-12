@@ -11,6 +11,22 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
+# ==================================================================================================================
+# selecting the preferred/current working environment.
+# ==================================================================================================================
+
+# default - no longer needed
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
+
+# split set-up due to the project's decentralized configuration - for production deployment, selection must be 
+# handled here(`base -> settings -> asgi.py`), inside `base -> settings -> wsgi.py` and inside `manage.py`. But
+# for development(when in a local environment), selection will work even when done in only `manage.py`.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.staging')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.production') 
+
+# =================================================================================================================
+# selecting the preferred/current working environment.
+# =================================================================================================================
 
 application = get_asgi_application()
