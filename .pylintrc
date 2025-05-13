@@ -1,7 +1,7 @@
 [MASTER]
 ignore=migrations,settings,Dockerfile,env,trash,db.sqlite3,manage.py,asgi.py,wsgi.py
 ignore-patterns=.*\.env$|.*\.gitignore$|.*\.json$|.*\.md$|.*\.docker.*$
-load-plugins=pylint_django
+; load-plugins=pylint_django
 
 [MESSAGES CONTROL]
 # Disable warnings that are noisy or not useful in Django context
@@ -29,7 +29,6 @@ disable=
     bad-plugin-value, # approve
     unused-wildcard-import, # approve
     unused-argument, # approve
-    django-not-configured, # approve
 
 [DESIGN]
 max-args=10
