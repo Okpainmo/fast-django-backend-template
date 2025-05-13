@@ -13,7 +13,7 @@ def main():
     # default - no longer needed
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
 
-    # split set-up due to the project's decentralized configuration - for production deployment, selection must be
+    # Split set-up due to the project's decentralized configuration. For production deployment, selection must be
     # handled here(`manage.py`), inside `base -> settings -> wsgi.py` and inside `base -> settings -> asgi.py`. But
     # for development(when in a local environment), selection will work even when done in only this file(`manage.py`).
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
