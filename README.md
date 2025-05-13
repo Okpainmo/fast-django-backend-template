@@ -254,7 +254,7 @@ black .
 
 3. As can be seen so far(if left that way), linting and code-formatting would be manual, hence collaborating developers can easily forget to run the necessary checks before pushing their contributions to Github.
 
-To solve that issue, **pre-commit** was used to enforce automated linting and code-formatting on all **staged** files to be committed - before a commit is allowed.
+To solve that issue, [**pre-commit**](https://pre-commit.com) was used to enforce automated linting and code-formatting on all **staged** files to be committed - before a commit is allowed.
 
 To run the pre-commit hook manually(on all related files in this case - not just for staged ones), use the command below:
 
