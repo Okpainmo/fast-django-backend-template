@@ -294,6 +294,6 @@ The above command, will run both **Black** and **Pylint** - ensuring both lintin
 * [Pydantic Documentation](https://docs.pydantic.dev)
 * [Django Documentation](https://docs.djangoproject.com)
 
-> Just in case this repository ever gets to save your butt at work or while learning Jenkins, and you wish to send an appreciation, [feel free to buy me a 'coffee'](https://paystack.com/pay/cagnddqmr2).
+> Just in case this repository ever gets to save your butt at any point, and you wish to send an appreciation, [feel free to buy me a 'coffee'](https://paystack.com/pay/cagnddqmr2).
 
 Cheers!!!
