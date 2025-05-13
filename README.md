@@ -73,12 +73,12 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 
 1a. Using this template is simple. The main criteria being that you know how to use Python, the Django framework and the Django-Ninja framework. One more important requirement to help you make the best of this template, is that you should have Docker installed on your machine - the template is pre-configured to use local PostgreSQL databases running on Docker.
 
-1b. Clone the Repository.
+1b. Clone the repository, and settle in to start working.
 
    ```bash
    git clone https://github.com/Okpainmo/fast-django-backend-template
 
-   cd fast-django-backend-template
+   cd your-project-name
    ```
 
 2. Create a virtual environment.
@@ -168,9 +168,9 @@ docker run -d --name fdbt_pg__staging -p 5434:5432 -e POSTGRES_USER=your-user-na
 docker run -d --name fdbt_pg__prod -p 5435:5432 -e POSTGRES_USER=your-user-name -e POSTGRES_PASSWORD=your-password -e POSTGRES_DB=fast_django_backend_template__db_prod postgres
 ```
 
-# P.S: starting docker postgres instances for `staging` and `prod` may not be necessary since you would want to use real(remotely provisioned) databases for those.
+> P.S: starting docker postgres instances for `staging` and `prod` may not be necessary since you would want to use real(remotely provisioned) databases for those.
 
-**CONNECT YOUR DATABASES TO A POSTGRESQL GUI SOFTWARE/SERVICE - E.G PGADMIN, TO VIEW THEM**.
+CONNECT YOUR DATABASES TO A POSTGRESQL GUI SOFTWARE/SERVICE - E.G PGADMIN, TO VIEW THEM.
 
 **Option 2: update the `docker-compose.yaml` file on the project's root - using the added `docker-compose.template.yaml` file as a guide, and start all the databases at once**.
 
@@ -265,6 +265,8 @@ pre-commit run --all-files
 The above command, will run both **Black** and **Pylint** - ensuring both linting and code-formatting checks.
 
 > P.S: You do not need to run the manual command for `pre-commit`. If you follow all instructions, and set up the template correctly, a pre-commit task would be automatically triggered whenever you try to make any code commit to Github, thereby - linting and formatting your code automatically.
+>
+> The pre-commit configuration file, is the `pre-commit-config.yaml` file which can be found on the project's root.
 
 ## Sample End-points.
 
