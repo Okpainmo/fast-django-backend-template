@@ -3,8 +3,8 @@
 A modular, and highly flexible Python Django(with the Django Ninja framework) template, for easily bootstrapping Django projects, and building super-fast backends/servers. 
 
 > Built with so much love ❤️ for myself, and engineering teams that I lead/work on.
-
-The template is domain-driven-development(DDD)-inspired, and comes with 3 default/sample domains to demonstrate the beautiful modular standard it follows.
+>
+> The template is domain-driven-development(DDD)-inspired, and comes with 3 default/sample domains to demonstrate the beautiful modular standard it follows.
 
 ## About the Django Ninja Framework
 
@@ -22,7 +22,7 @@ Django Ninja is a fast, modern web framework built on top of Django and powered 
 
 - Simple & Intuitive – Less boilerplate, more productivity. Great for building clean and maintainable APIs.
 
-> Django Ninja is heavily inspired by **FastAPI** and shares several core concepts, but it's built to work seamlessly within the Django ecosystem.
+> Django Ninja is heavily inspired by **FastAPI** and shares several core concepts, but it's built to work seamlessly within the Django ecosystem. I consider it to be like having the best of both worlds - Enjoying the robustness of Django(especially the speed that it's pre-configured setups provides), while still making the best of the simplicity and control that FastAPI affords.
 
 ## Working Environment Support.
 
@@ -32,26 +32,54 @@ Django Ninja is a fast, modern web framework built on top of Django and powered 
 >
 > Switching to a different environment is easy: **simply head to the `manage.py` file on the project's root, and un-comment the preferred environment setup. The default work environment is the "development" environment**.
 
-E.g.
+I.e.
 
-```bash
+```python
+# ...code above
+
+# ==================================================================================================================
+# selecting the preferred/current working environment.
+# ==================================================================================================================
+
+# default - no longer needed
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
+
+# split set-up due to the project's decentralized configuration. For production deployment, selection must be
+# handled here(`manage.py`), inside `base -> settings -> wsgi.py` and inside `base -> settings -> asgi.py`. But
+# for development(when in a local environment), selection will work even when done in only this file(`manage.py`).
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.staging')
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.production')
+
+# =================================================================================================================
+# selecting the preferred/current working environment.
+# =================================================================================================================
+
+# ...code after
 ```
 
 **Ensure to restart the server anytime you switch working environments!!!**
+
+### Environment Variables
 
 > The project has 2(two) environmental variable files(which are all intentionally un-ignored), to help you easily understand how the template's environmental variables setup works. **Endeavour to git-ignore them immediately you clone the project**.
 >
 > 1. `.env` - left empty - with only a comment
 > 4. `.env.template` - this is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one.
 
-**P.S: The template has a multi-database scope - hence has configurations for multiple databases(SQlite, and PostgreSQL for now). Kindly note that the template only utilizes PostgreSQL. The SQlite config is however left(commented) in place just in case you don't have a PostgreSQL setup, and prefer to use SQlite.**. 
+**P.S: The template has a multi-database scope - hence it has configurations for multiple databases(SQlite, and PostgreSQL for now). Kindly note that the template only utilizes PostgreSQL. However, the SQlite config is left(commented) in place just in case you don't have a PostgreSQL setup, and prefer to use SQlite.**. 
 
 ## How To Use This Template.
 
-1. Using this template is simple. The main criteria being that you know how to use Python, the Django Python Framework and the Django-Ninja framework. And also that you have Docker installed on your machine - the template is pre-configured to use local PostgreSQL databases running on Docker.
+1a. Using this template is simple. The main criteria being that you know how to use Python, the Django framework and the Django-Ninja framework. One more important requirement to help you make the best of this template, is that you should have Docker installed on your machine - the template is pre-configured to use local PostgreSQL databases running on Docker.
+
+1b. Clone the Repository.
+
+   ```bash
+   git clone https://github.com/Okpainmo/fast-django-backend-template
+
+   cd fast-django-backend-template
+   ```
 
 2. Create a virtual environment.
 
@@ -79,7 +107,7 @@ source venv/bin/activate
 which python
 ```
 
-5. Proceed to install all project dependencies.
+5a. Proceed to install all project dependencies.
 
 **with current project versions**:
 
@@ -90,7 +118,13 @@ pip install -r requirements.txt
 **or, with new version installations(ensure to delete the `requirement.txt` file first)**:
 
 ```bash
-pip install Django django-ninja python-dotenv psycopg2-binary gunicorn "uvicorn[standard]" # in progress
+pip install Django django-ninja python-dotenv psycopg2-binary gunicorn "uvicorn[standard]" black pylint pylint-django pre-commit # in progress
+```
+
+5b. Install hook for `pre-commit`
+
+```bash
+pre-commit install
 ```
 
 6. Update the current requirements.txt file - if/when necessary.
@@ -99,7 +133,7 @@ pip install Django django-ninja python-dotenv psycopg2-binary gunicorn "uvicorn[
 pip freeze > requirements.txt
 ```
 
-7. Pull PostgreSQL image from Docker Hub.
+7. Pull PostgreSQL database image from Docker Hub.
 
 ```bash
 docker pull postgres 
@@ -110,32 +144,35 @@ docker pull postgres
 **Option 1: start them individually**.
 
 ```bash
-# postgres(update the start command to suit your setup, and start databases for all the 3 environments using docker).
+# update the start command to suit your setup, and start databases for all the 3 environments using docker.
 
 docker run -d --name container-name -p 543x:5432 -e POSTGRES_USER=your-user-name -e POSTGRES_PASSWORD=your-password -e POSTGRES_DB=database-name postgres
+```
+E.g. 
 
-# E.g. 
-
+```bash
 # for dev:
 
 docker run -d --name fdbt_pg__dev -p 5433:5432 -e POSTGRES_USER=your-user-name -e POSTGRES_PASSWORD=your-password -e POSTGRES_DB=fast_django_backend_template__db_dev postgres
+```
 
+```bash
 # for staging:
 
 docker run -d --name fdbt_pg__staging -p 5434:5432 -e POSTGRES_USER=your-user-name -e POSTGRES_PASSWORD=your-password -e POSTGRES_DB=fast_django_backend_template__db_staging postgres
+```
 
+```bash
 # for prod:
 
 docker run -d --name fdbt_pg__prod -p 5435:5432 -e POSTGRES_USER=your-user-name -e POSTGRES_PASSWORD=your-password -e POSTGRES_DB=fast_django_backend_template__db_prod postgres
+```
 
 # P.S: starting docker postgres instances for `staging` and `prod` may not be necessary since you would want to use real(remotely provisioned) databases for those.
 
-# ===================================================================================================
-# CONNECT YOUR DATABASES TO A POSTGRESQL GUI SOFTWARE/SERVICE - E.G PGADMIN, TO VIEW THEM.
-# ===================================================================================================
-```
+**CONNECT YOUR DATABASES TO A POSTGRESQL GUI SOFTWARE/SERVICE - E.G PGADMIN, TO VIEW THEM**.
 
-**Option 2: update the added `docker-compose.yaml` file - using the added `docker-compose.template.yaml` file as a guide, and start all the databases at once**.
+**Option 2: update the `docker-compose.yaml` file on the project's root - using the added `docker-compose.template.yaml` file as a guide, and start all the databases at once**.
 
 ```bash
 docker compose up -d
@@ -147,7 +184,7 @@ docker compose up -d
 python manage.py runserver
 ```
 
-**Visit the server address: `http://127.0.0.1:8000/`. If everything is well set up, you should see a welcome screen like the one below**:
+9b. Visit the server address: `http://127.0.0.1:8000/`. If everything is well set up, you should see a welcome screen like the one below:
 
 ![Server home-screen screenshot](./public/server-homescreen.png)
 
@@ -167,7 +204,7 @@ The welcome screen is simply a Django template(template engine) build. TailwindC
 .../api/v1/admin/
 ```
 
-11. Ride/speed on...
+11. Ride/speed on, and enjoy building...
 
 ## Building Your Project With Docker.
 
@@ -184,7 +221,7 @@ E.g.
 docker build -t fast-django-backend-template__docker .
 ```
 
-With that, you can push the image to docker hub, and set-up a docker-compose configuration that pull the docker image, and starts up the database(s) - with one single command. This will provide much ease for team-mates(especially seniors and leads) who only wish to assess/test development progress - and not to contribute.
+That way, you can push the image to docker hub, and set-up a docker-compose configuration that pulls the docker image, and starts up the database(s) - all with one single command. This will provide much ease for team-mates(especially seniors and leads) who only wish to assess/test the development progress - and not to contribute.
 
 **sample Docker command to start a container that is running the image**.
 
@@ -194,9 +231,50 @@ docker run -d -p 8000:8000 --env-file .env --name fast-django-backend-template__
 
 ## Enforcing Coding(Contribution) Standards/Rules(Linting, Code Formatting, and more).
 
+This template is built to support the best industry standards available. Hence enforcing code quality
+was a core focus.
+
+1. For linting, [**Pylint**](https://pypi.org/project/pylint/) was used. See the `.pylintrc` file on the project root, for **Pylint** configurations.
+
+To format your code manually, Simply run the code below on the project's root directory.
+
+```bash
+pylint .
+```
+
+> P.S: Looking into the `.pylintrc` file, you will find some **disabled** Pylint rules. It is very important, that you access, and set up all of them in a way that suits your preferences/standards - especially the rules with an "# approve" comment/flag at their ends. I highly recommend that you look out for those, un-disable them(turn them back on), and verify that you're okay with them being disabled.
+
+2. For code-formatting [**Black**](https://github.com/psf/black) was used. Check out the `pyproject.toml` file on the project's root for Black configurations.
+
+Run the command below on the project's root directory, to enforce code formatting with Black.
+
+```bash
+black .
+```
+
+3. As can be seen so far(if left that way), linting and code-formatting would be manual, hence collaborating developers can easily forget to run the necessary checks before pushing their contributions to Github.
+
+To solve that issue, **pre-commit** was used to enforce automated linting and code-formatting on all **staged** files to be committed - before a commit is allowed.
+
+To run the pre-commit hook manually(on all related files in this case - not just for staged ones), use the command below:
+
+```bash
+pre-commit run --all-files
+```
+
+The above command, will run both **Black** and **Pylint** - ensuring both linting and code-formatting checks.
+
+> P.S: You do not need to run the manual command for `pre-commit`. If you follow all instructions, and set up the template correctly, a pre-commit task would be automatically triggered whenever you try to make any code commit to Github, thereby - linting and formatting your code automatically.
+
+## Sample End-points.
+
 ...in progress.
 
-## Database Setup.
+## File Storage.
+
+...in progress.
+
+## Sending Emails.
 
 ...in progress.
 
@@ -208,4 +286,12 @@ docker run -d -p 8000:8000 --env-file .env --name fast-django-backend-template__
 
 ...in progress.
 
+## Learn More.
 
+* [Django Ninja Documentation](https://django-ninja.dev)
+* [Pydantic Documentation](https://docs.pydantic.dev)
+* [Django Documentation](https://docs.djangoproject.com)
+
+> Just in case this repository ever gets to save your butt at work or while learning Jenkins, and you wish to send an appreciation, [feel free to buy me a 'coffee'](https://paystack.com/pay/cagnddqmr2).
+
+Cheers!!!
