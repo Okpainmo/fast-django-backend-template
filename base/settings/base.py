@@ -29,6 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure--#vo2^w0kw2qfr6a8fl=a$hpq2zxk9a77thj^_s!vsz5!sv&by'
 SECRET_KEY = os.getenv('JWT_SECRET')
+JWT_ACCESS_EXPIRATION_TIME = os.getenv('JWT_ACCESS_EXPIRATION_TIME')
+JWT_SESSION_EXPIRATION_TIME = os.getenv('JWT_SESSION_EXPIRATION_TIME')
+JWT_ONE_TIME_PASSWORD_LIFETIME = os.getenv('JWT_ONE_TIME_PASSWORD_LIFETIME')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -62,7 +65,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # os.path.join(BASE_DIR, "templates") # setup for api home screen template rendering
+            # os.path.join(BASE_DIR, "templates") # setup for api home screen template rendering - for single settings file
+            # below: above line is updated after splitting settings for the 3 working environments
             BASE_DIR.parent
             / "templates",
         ],

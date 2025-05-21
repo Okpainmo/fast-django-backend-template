@@ -18,12 +18,12 @@ from django.core.wsgi import get_wsgi_application
 # default - no longer needed
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
 
-# Split set-up due to the project's decentralized configuration. For production deployment, selection must be
+# Split set-up due to the project's decentralized configuration. For production deployment, environment selection must be
 # handled here(`base -> settings -> wsgi.py`), inside `base -> settings -> asgi.py` and inside `manage.py`. But
 # For development(when in a local environment), selection will work even when done in only `manage.py`.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.staging')
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.production')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.production')
 
 # =================================================================================================================
 # selecting the preferred/current working environment.

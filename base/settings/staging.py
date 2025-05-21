@@ -15,7 +15,7 @@ DATABASES = {
     }
 }
 
-# production AWS S3 setup
+# staging AWS S3 setup
 AWS_BUCKET_NAME = os.getenv("AWS_BUCKET_NAME__STAGING")
 AWS_BUCKET_REGION = os.getenv("AWS_BUCKET_REGION__STAGING")
 AWS_S3__PUBLIC_FILE_BASE_URL = f"https://{AWS_BUCKET_NAME}.s3.amazonaws.com"
