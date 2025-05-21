@@ -2,7 +2,7 @@
 
 A modular, and highly flexible Python Django(with the Django Ninja framework) template, for easily bootstrapping Django projects, and building super-fast backends/servers. 
 
-> Built with so much love ❤️ for myself, and engineering teams that I lead/work on.
+> Built with so much love(❤️) for myself, and engineering teams that I lead/work on.
 >
 > The template is domain-driven-development(DDD)-inspired, and comes with 3 default/sample domains to demonstrate the beautiful modular standard it follows.
 
@@ -28,14 +28,14 @@ Django Ninja is a fast, modern web framework built on top of Django and powered 
 
 > As per working environments, the template supports 3 different environments(development/dev, staging, and production/prod) - with modularized settings for each. See `base > settings`. 
 > 
-> **This gives you the massive flexibility to test any of the working environments locally with so much ease.**
+> **This gives you the massive flexibility of being able to test any of the working environments locally with so much ease.**
 >
 > Switching to a different environment is easy: **simply head to the `manage.py` file on the project's root, and un-comment the preferred environment setup. The default work environment is the "development" environment**.
 
 I.e.
 
 ```python
-# ...code above
+# ...code before
 
 # ==================================================================================================================
 # selecting the preferred/current working environment.
@@ -62,24 +62,24 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 
 ### Environment Variables
 
-> The project has 2(two) environmental variable files(which are all intentionally un-ignored), to help you easily understand how the template's environmental variables setup works. **Endeavour to git-ignore them immediately you clone the project**.
+> The project has 2(two) environmental variable files(which are all intentionally un-ignored), to help you easily understand how the template's environmental variables setup works. **Endeavour to git-ignore them immediately you start a project**.
 >
 > 1. `.env` - left empty - with only a comment
-> 4. `.env.template` - this is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one.
+> 2. `.env.template` - this is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one.
 
 **P.S: The template has a multi-database scope - hence it has configurations for multiple databases(SQlite, and PostgreSQL for now). Kindly note that the template only utilizes PostgreSQL. However, the SQlite config is left(commented) in place just in case you don't have a PostgreSQL setup, and prefer to use SQlite.**. 
 
 ## How To Use This Template.
 
-1a. Using this template is simple. The main criteria being that you know how to use Python, the Django framework and the Django-Ninja framework. One more important requirement to help you make the best of this template, is that you should have Docker installed on your machine - the template is pre-configured to use local PostgreSQL databases running on Docker.
+1a. Using this template is simple. The main criteria being that you know how to use Python, the Django framework and the Django-Ninja framework. One other important requirement, is that you should have Docker installed on your machine - the template is pre-configured to use local PostgreSQL databases running on Docker.
 
-1b. Clone the repository, and settle in to start working.
+1b. Create a project repository(using this as a template), and settle in to start working.
 
-   ```bash
-   git clone https://github.com/Okpainmo/fast-django-backend-template
+```bash
+git clone your-project-url
 
-   cd your-project-name
-   ```
+cd your-project-name
+```
 
 2. Create a virtual environment.
 
@@ -187,6 +187,7 @@ python manage.py runserver
 9b. Visit the server address: `http://127.0.0.1:8000/`. If everything is well set up, you should see a welcome screen like the one below:
 
 ![Server home-screen screenshot](./public/server-homescreen.png)
+[Visit my website](https://mywebsitelink.com)
 
 The welcome screen is simply a Django template(template engine) build. TailwindCSS was used for styling.
 
@@ -206,7 +207,7 @@ The welcome screen is simply a Django template(template engine) build. TailwindC
 
 11. Ride/speed on, and enjoy building...
 
-## Building Your Project With Docker.
+## Building The Template With Docker.
 
 The template comes with a pre-configured `Dockerfile`, and a `.dockerignore`. With these, building the template into a Docker image becomes as easy as running the command below.
 
@@ -221,15 +222,15 @@ E.g.
 docker build -t fast-django-backend-template__docker .
 ```
 
-That way, you can push the image to docker hub, and set-up a docker-compose configuration that pulls the docker image, and starts up the database(s) - all with one single command. This will provide much ease for team-mates(especially seniors and leads) who only wish to assess/test the development progress - and not to contribute.
-
 **sample Docker command to start a container that is running the image**.
 
 ```bash
-docker run -d -p 8000:8000 --env-file .env --name fast-django-backend-template__docker fast-django-backend-template__docker
+docker run -d -p 8001:8000 --env-file .env --name fast-django-backend-template__docker fast-django-backend-template__docker
 ```
 
-## Enforcing Coding(Contribution) Standards/Rules(Linting, Code Formatting, and more).
+> Instead of building the app/server directly with Docker, while still separately setting up the databases with docker-compose, you can set-up the docker-compose configuration to handle everything(build the app/server, and start up the database(s)) - all with one single command. This will provide much ease for team-mates(especially seniors and leads) who only wish to assess/test the development progress - and not to contribute. Ensure to use separate ports for the app/server running on docker, and the one running locally on your machine, so as to avoid conflicts.
+
+## Enforcing Coding Contribution(Collaboration) Standards(Linting, Code Formatting, and more).
 
 This template is built to support the best industry standards available. Hence enforcing code quality
 was a core focus.
@@ -270,30 +271,41 @@ The above command, will run both **Black** and **Pylint** - ensuring both lintin
 
 ## Sample End-points.
 
-...in progress.
+As earlier stated, the project comes with 3 different domains(the auth domain, the user domain, and the admin domain) that help to demonstrate how to keep things modular, domain-driven, neat, and professional.
 
-## File Storage.
+Below are the default domains and their sample end-point, which you can build on top of - if you wish.
 
-...in progress.
+### Default Domains And Their End-points.
 
-## Sending Emails.
+Admin:
 
-...in progress.
+- Endpoints:
 
-## Writing Tests.
+    - De-activate user - /api/v1/admin/deactivate-user/:userId
 
-...in progress.
+Auth:
 
-## CI/CD Support With Jenkins.
+- Endpoints:
 
-...in progress.
+    - Log-in - /api/v1/auth/log-in
+    - Register - /api/v1/auth/register
 
-## Learn More.
+User:
 
-* [Django Ninja Documentation](https://django-ninja.dev)
-* [Pydantic Documentation](https://docs.pydantic.dev)
-* [Django Documentation](https://docs.djangoproject.com)
+- Endpoints:
 
-> Just in case this repository ever gets to save your butt at any point, and you wish to send an appreciation, [feel free to buy me a 'coffee'](https://paystack.com/pay/cagnddqmr2).
+    - Get user profile - /api/v1/user/:userId
+
+## Want To Contribute?
+
+This project will be a progressive one. I and any other contributor(s), will continue to add relevant updates. This makes it very important that you always share details about any contribution you wish to make - before-hand, and avoid the needless stress of proceeding to work a contribution for a topic that is already in-progress.
+
+To contribute successfully, simply create a Github issues that mentions me, and I'll be right with you to discuss your proposed/intended contribution.
+
+Feel free to drop a star, fork/use, and share every contributions you possibly can.
+
+## Wrapping up.
+
+Just in case this repository ever gets to save your butt at work or while learning to build production-grade Node/Express with Typescript APIs, and you wish to send an appreciation, feel free to buy me a 'coffee'.
 
 Cheers!!!

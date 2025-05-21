@@ -4,12 +4,12 @@ __pycache__/
 .idea/
 
 # environments
-.env*
 .env
 .env.template
 .env.dev
 .env.staging
 .env.production
+.env*
 
 env
 .venv/
