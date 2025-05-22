@@ -9,10 +9,12 @@ from utils.coded_error_handlers import error_handler_404, error_handler_500
 from utils.logger import logger
 from django.http import JsonResponse
 from utils.cookie_deploy_handler import deploy_auth_cookie
+
 # from middlewares.global__auth_access_and_session_middleware import AuthBearer
 
 log = logger()
 user_router = Router()
+
 
 class _pResponse(Schema):
     id: int
@@ -25,6 +27,7 @@ class _pResponse(Schema):
     access_token: Optional[str] = None
     refresh_token: Optional[str] = None
 
+
 class ResponseSpecs(Schema):
     response_message: str
     response: dict
@@ -34,14 +37,13 @@ class ResponseSpecs(Schema):
     class Config:
         exclude_none = True
 
+
 @user_router.get("/", response=ResponseSpecs)
 def user_base(request):
-    return JsonResponse({
-        "response_message": "User domain is live!!!",
-        "response": {
-            "message": "OK!!!"
-        }
-    })
+    return JsonResponse(
+        {"response_message": "User domain is live!!!", "response": {"message": "OK!!!"}}
+    )
+
 
 @user_router.get("/{user_id}", response=ResponseSpecs)
 def get_user_profile(request, user_id: int):
@@ -65,14 +67,16 @@ def get_user_profile(request, user_id: int):
             "updated_at": user.updated_at,
         }
 
-        response_data = JsonResponse({
-            "response_message": "User profile retrieved successfully",
-            "response": {
-                "user_profile": user_profile,
-                "access_token": getattr(request, "new_access_token", None),
-                "refresh_token": getattr(request, "new_refresh_token", None)
+        response_data = JsonResponse(
+            {
+                "response_message": "User profile retrieved successfully",
+                "response": {
+                    "user_profile": user_profile,
+                    "access_token": getattr(request, "new_access_token", None),
+                    "refresh_token": getattr(request, "new_refresh_token", None),
+                },
             }
-        })
+        )
 
         # Deploy auth cookie
         # deploy_auth_cookie({
@@ -81,7 +85,7 @@ def get_user_profile(request, user_id: int):
         # })
 
         return response_data
-    
+
     except Exception as e:
         log.error("Error retrieving user profile", error=str(e), user_id=user_id)
         return error_handler_500(e)
