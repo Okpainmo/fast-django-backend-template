@@ -8,7 +8,6 @@ from domain__auth.views import auth_router
 from domain__user.views import user_router
 from domain__admin.views import admin_router
 
-
 api = NinjaAPI()
 
 api.add_router("/v1/auth", auth_router)
