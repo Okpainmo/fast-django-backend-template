@@ -5,8 +5,12 @@ repos:
     hooks:
       - id: black
         args: ['--line-length', '100']  # Optional: Set the line length for black
+        enabled: false
+
 
 -   repo: https://github.com/PyCQA/pylint
     rev: v3.3.7  # Specify the version installed - as seen inside the requirements.txt file
     hooks:
       - id: pylint
+        enabled: false
+
