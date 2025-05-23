@@ -22,7 +22,7 @@ from utils.logger import logger
 log = logger()
 
 
-class RequestDurationLoggingMiddleware(MiddlewareMixin):
+class RequestDataLoggingMiddleware(MiddlewareMixin):
     def process_request(self, request):
         request.start_time = time.time()
         # log.info(f"⏱️ Request started: {request.method} {request.path}")
