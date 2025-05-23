@@ -2,6 +2,8 @@ from datetime import timedelta
 from utils.logger import logger
 
 log = logger()
+
+
 def deploy_auth_cookie(data):
     """
     Deploy an authentication cookie for user sessions.
@@ -37,10 +39,10 @@ def deploy_auth_cookie(data):
     auth_cookie = data.get('auth_cookie')
 
     response.set_cookie(
-        'Fast_Django_Backend_Template', auth_cookie,
+        'Fast_Django_Backend_Template',
+        auth_cookie,
         httponly=True,
         secure=True,
         samesite='Strict',
         max_age=timedelta(hours=24).total_seconds(),
     )
-   
