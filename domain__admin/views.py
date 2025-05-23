@@ -18,19 +18,6 @@ from django.http import JsonResponse
 
 log = logger()
 admin_router = Router()
-
-# class UserProfileResponse(Schema):
-#     id: int
-#     name: Optional[str]
-#     email: str
-#     is_admin: bool
-#     is_active: bool
-#     created_at: datetime
-#     updated_at: datetime
-#     access_token: str
-#     refresh_token: str
-
-
 class ResponseSpecs(Schema):
     response_message: str
     response: dict
@@ -96,14 +83,9 @@ def deactivate_user(request, user_id: int):
             }
         )
 
-        # Deploy auth cookie
-        # deploy_auth_cookie({
-        #     "response": response_data,
-        #     "auth_cookie": getattr(request, "auth_cookie", None)
-        # })
-
         return response_data
 
-    except Exception as e:
-        log.error("Error during user deactivation", error=str(e), user_id=user_id)
+    except (ValueError, TypeError, AttributeError) as e:
+        log.error("Error during login", error=str(e))
         return error_handler_500(e)
+
