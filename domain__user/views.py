@@ -86,6 +86,6 @@ def get_user_profile(request, user_id: int):
 
         return response_data
 
-    except Exception as e:
+    except (ValueError, TypeError, AttributeError) as e:
         log.error("Error retrieving user profile", error=str(e), user_id=user_id)
         return error_handler_500(e)
