@@ -13,8 +13,13 @@ services:
       POSTGRES_DB: fast_django_backend_template__db_dev
     volumes:
       - pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "your-user-name"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # PostgreSQL for Staging (for local testing only)
+  # PostgreSQL for Staging
   postgres_staging:
     image: postgres
     container_name: fdbt_pg__staging
@@ -28,42 +33,58 @@ services:
       POSTGRES_DB: fast_django_backend_template__db_staging
     volumes:
       - pgdata_staging:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "your-user-name"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # PostgreSQL for Production (for local testing only)
+  # PostgreSQL for Production
   postgres_prod:
     image: postgres
     container_name: fdbt_pg__prod
     ports:
       - "5435:5432"
     networks:
-      - backend_net
+      - backend_net 
     environment:
       POSTGRES_USER: your-user-name
       POSTGRES_PASSWORD: your-password
       POSTGRES_DB: fast_django_backend_template__db_prod
     volumes:
       - pgdata_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "your-user-name"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Django Application Server
-  # django_app_server:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: fdbt__app
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - postgres_dev
-  #     - postgres_staging
-  #     - postgres_prod
-  #   environment:
-  #     POSTGRES_DEV_URI: postgres://your-user-name:your-password@postgres_dev:5432/fast_django_backend_template__db_dev
-  #     POSTGRES_STAGING_URI: postgres://your-user-name:your-password@postgres_staging:5432/fast_django_backend_template__db_staging
-  #     POSTGRES_PROD_URI: postgres://your-user-name:your-password@postgres_prod:5432/fast_django_backend_template__db_prod
-  #   volumes:
-  #     - .:/app
-  #   working_dir: /app
-  #   command: python manage.py runserver 0.0.0.0:8000  # Adjust if you’re using something like gunicorn/uvicorn
+  django_app_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fdbt__app
+    ports:
+      - "8000:8000"
+    networks:
+      - backend_net
+    depends_on:
+      postgres_dev:
+        condition: service_healthy
+      postgres_staging:
+        condition: service_healthy
+      postgres_prod:
+        condition: service_healthy
+    environment:
+      POSTGRES_DEV_URI: postgres://your-user-name:your-password@postgres_dev:5432/fast_django_backend_template__db_dev
+      POSTGRES_STAGING_URI: postgres://your-user-name:your-password@postgres_staging:5432/fast_django_backend_template__db_staging
+      POSTGRES_PROD_URI: postgres://your-user-name:your-password@postgres_prod:5432/fast_django_backend_template__db_prod
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: gunicorn base.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+    # command: python manage.py runserver 0.0.0.0:8000
 
 volumes:
   pgdata_dev:
