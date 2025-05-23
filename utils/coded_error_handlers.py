@@ -21,12 +21,6 @@ def error_handler_500(error: Any) -> JsonResponse:
             'response_message': 'Request was unsuccessful: internal server error',
             'error': str(error)
         }, status=500)
-    else:
-        log.error("Error", error=str(error))
-        return JsonResponse({
-            'response_message': 'Request was unsuccessful: internal server error',
-            'error': str(error)
-        }, status=500)
 
 def error_handler_403(error_message: Any) -> JsonResponse:
     """

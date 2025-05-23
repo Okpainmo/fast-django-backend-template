@@ -28,7 +28,7 @@ def deploy_auth_cookie(data):
         - samesite='Strict': CSRF protection
         - max_age=24 hours: Session duration
     """
-    # log.info('Deploying auth cookie', data=data)
+    # log.info('Deploying auth cookie', auth_cookie_data=data)
 
     if not isinstance(data.get('auth_cookie'), str):
         raise ValueError('auth_cookie must be a string')

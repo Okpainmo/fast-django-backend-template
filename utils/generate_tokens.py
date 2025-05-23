@@ -10,17 +10,28 @@ log = logger()
 
 def generate_tokens(data):
     """
-    Generate a JWT access token based on the provided data.
+    Generate JWT tokens for authentication or one-time password purposes.
+
+    This function can generate two types of tokens:
+    1. Authentication tokens (access token, refresh token, and auth cookie)
+    2. One-time password token
 
     Args:
-        data (dict): A dictionary containing user information and token type.
+        data (dict): A dictionary containing:
+            - user_id: The user's unique identifier
+            - email: The user's email address
+            - token_type: Either "auth" for authentication tokens or "one_time_password" for OTP
 
     Returns:
-        str: Encoded JWT token.
+        dict or str: For auth tokens, returns a dictionary containing:
+            - auth_cookie: A secure cookie string
+            - access_token: Short-lived JWT token (default 60 mins)
+            - refresh_token: Long-lived JWT token (default 24 hrs)
+        For one-time password, returns a JWT token string (default 5 mins lifetime)
 
     Raises:
-        ValueError: If required attributes are missing in data.
-        RuntimeError: If token generation fails due to an unforeseen error.
+        ValueError: If required attributes (user_id, email, token_type) are missing
+        RuntimeError: If token generation fails due to an unforeseen error
     """
     access_expiry = int(settings.JWT_ACCESS_EXPIRATION_TIME) # 60 mins(1 hr)
     session_expiry = int(settings.JWT_SESSION_EXPIRATION_TIME) # 1440 mins(24hrs)
@@ -62,7 +73,7 @@ def generate_tokens(data):
             auth_cookie_part_A = make_password(data.get('email'))
             auth_cookie_part_B = settings.SECRET_KEY
 
-            auth_cookie = f"Fast_Django_Backend_Template_____{auth_cookie_part_A}_____{auth_cookie_part_B}";
+            auth_cookie = f"Fast_Django_Backend_Template_____{auth_cookie_part_A}_____{auth_cookie_part_B}"
 
             tokens = {
                 "auth_cookie": auth_cookie,
@@ -73,7 +84,6 @@ def generate_tokens(data):
             # log.info("auth tokens inside generate tokens", tokens=tokens)
 
             return tokens
-        
 
         if(data.get("token_type") == "one_time_password"):
             one_time_password_expiration_time = datetime.now(timezone.utc) + timedelta(minutes=one_time_password_expiry) # 5 minutes
