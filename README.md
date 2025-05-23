@@ -44,9 +44,9 @@ I.e.
 # default - no longer needed
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings')
 
-# split set-up due to the project's decentralized configuration. For production deployment, selection must be
+# Split set-up due to the project's decentralized configuration. For production deployment, environment selection must be
 # handled here(`manage.py`), inside `base -> settings -> wsgi.py` and inside `base -> settings -> asgi.py`. But
-# for development(when in a local environment), selection will work even when done in only this file(`manage.py`).
+# For development(when in a local environment), selection will work even when done in only this file(`manage.py`).
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.staging')
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.production')
@@ -54,6 +54,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 # =================================================================================================================
 # selecting the preferred/current working environment.
 # =================================================================================================================
+
 
 # ...code after
 ```
@@ -64,7 +65,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 
 > The project has a template environmental variable files - to help you easily understand how the project's environmental variables setup works. 
 >
-> `.env.template` - it is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one. Simply create the `.env`, then copy the content of `.env.template` into it and make necessary updates.
+> `.env.template` - is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one. Simply create the `.env`, then copy the content of `.env.template` into it and make necessary updates.
 
 **P.S: The template has a multi-database scope - hence it has configurations for multiple databases(SQlite, and PostgreSQL for now). Kindly note that the template only utilizes PostgreSQL. However, the SQlite config is left(commented) in place just in case you don't have a PostgreSQL setup, and prefer to use SQlite.**. 
 
@@ -75,7 +76,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 1b. Create a project repository(using this as a template), and settle in to start working.
 
 ```bash
-git clone your-project-url
+git clone your-new-project-repo-url
 
 cd your-project-name
 ```
@@ -172,7 +173,7 @@ docker run -d --name fdbt_pg__prod -p 5435:5432 -e POSTGRES_USER=your-user-name 
 
 CONNECT YOUR DATABASES TO A POSTGRESQL GUI SOFTWARE/SERVICE - E.G PGADMIN, TO VIEW THEM.
 
-**Option 2: update the `docker-compose.yaml` file on the project's root - using the added `docker-compose.template.yaml` file as a guide, and start all the databases at once**.
+**Option 2: create a `docker-compose.yaml` file on the project's root - and update it with the content of `docker-compose.template.yaml`, then proceed to start all the databases at once with command below**.
 
 ```bash
 docker compose up -d
@@ -187,29 +188,14 @@ python manage.py runserver
 9b. Visit the server address: `http://127.0.0.1:8000/`. If everything is well set up, you should see a welcome screen like the one below:
 
 ![Server home-screen screenshot](./public/server-homescreen.png)
-[Visit my website](https://mywebsitelink.com)
 
 The welcome screen is simply a Django template(template engine) build. TailwindCSS was used for styling.
 
-10. Explore your project and test the following domain end-points.
-
-```bash
-.../api/v1/auth/
-```
-
-```bash
-.../api/v1/user/
-```
-
-```bash
-.../api/v1/admin/
-```
-
-11. Ride/speed on, and enjoy building...
+10. Take a deep breath, reward yourself with a coffee break, and return to hack on.
 
 ## Building The Template With Docker.
 
-The template comes with a pre-configured `Dockerfile`, and a `.dockerignore`. With these, building the template into a Docker image becomes as easy as running the command below.
+The template comes with a pre-configured `Dockerfile`, and a `.dockerignore`. With the Dockerfile in place, building the template into a Docker image becomes as easy as running the command below.
 
 > Remember to set to your preferred working environment - 'dev' I suppose.
 
@@ -228,7 +214,7 @@ docker build -t fast-django-backend-template__docker .
 docker run -d -p 8001:8000 --env-file .env --name fast-django-backend-template__docker fast-django-backend-template__docker
 ```
 
-> Instead of building the app/server directly with Docker, while still separately setting up the databases with docker-compose, you can set-up the docker-compose configuration to handle everything(build the app/server, and start up the database(s)) - all with one single command. This will provide much ease for team-mates(especially seniors and leads) who only wish to assess/test the development progress - and not to contribute. Ensure to use separate ports for the app/server running on docker, and the one running locally on your machine, so as to avoid conflicts.
+> Instead of building the app/server directly with Docker, while still separately setting up the databases with docker-compose, you can set-up the docker-compose configuration to handle everything(build the app/server, and start up the database(s)) - all with one single command. This will provide much ease for team-mates(especially seniors and leads) who only wish to assess/test the development progress - and not to contribute. Ensure to use separate ports for the app/server running on docker, and the one running locally on your machine, so as to avoid conflicts. See `docker-compose.template.yaml` for help.
 
 ## Enforcing Coding Contribution(Collaboration) Standards(Linting, Code Formatting, and more).
 
@@ -273,24 +259,24 @@ The above command, will run both **Black** and **Pylint** - ensuring both lintin
 
 As earlier stated, the project comes with 3 different domains(the auth domain, the user domain, and the admin domain) that help to demonstrate how to keep things modular, domain-driven, neat, and professional.
 
-Below are the default domains and their sample end-point, which you can build on top of - if you wish.
+Below are the 3 default domains and their sample end-point, which you can build on top of - if you wish.
 
 ### Default Domains And Their End-points.
 
-Admin:
+1. Admin:
 
 - Endpoints:
 
     - De-activate user - /api/v1/admin/deactivate-user/:userId
 
-Auth:
+2. Auth:
 
 - Endpoints:
 
     - Log-in - /api/v1/auth/log-in
     - Register - /api/v1/auth/register
 
-User:
+3. User:
 
 - Endpoints:
 
@@ -306,6 +292,6 @@ Feel free to drop a star, fork/use, and share every contributions you possibly c
 
 ## Wrapping up.
 
-Just in case this repository ever gets to save your butt at work or while learning to build production-grade Node/Express with Typescript APIs, and you wish to send an appreciation, feel free to buy me a 'coffee'.
+> Just in case this repository ever gets to save your butt at work or while learning to build production-grade Node/Express with Typescript APIs, and you wish to send an appreciation, [feel free to buy me a 'coffee'](https://paystack.com/pay/cagnddqmr2).
 
 Cheers!!!
