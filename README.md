@@ -62,10 +62,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'base.settings.development')
 
 ### Environment Variables
 
-> The project has 2(two) environmental variable files(which are all intentionally un-ignored), to help you easily understand how the template's environmental variables setup works. **Endeavour to git-ignore them immediately you start a project**.
+> The project has a template environmental variable files - to help you easily understand how the project's environmental variables setup works. 
 >
-> 1. `.env` - left empty - with only a comment
-> 2. `.env.template` - this is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one.
+> `.env.template` - it is simply a guide to help you set up the main `.env` that you should use. Feel free to delete it whenever you wish - which of course should be after setting up the main one. Simply create the `.env`, then copy the content of `.env.template` into it and make necessary updates.
 
 **P.S: The template has a multi-database scope - hence it has configurations for multiple databases(SQlite, and PostgreSQL for now). Kindly note that the template only utilizes PostgreSQL. However, the SQlite config is left(commented) in place just in case you don't have a PostgreSQL setup, and prefer to use SQlite.**. 
 
