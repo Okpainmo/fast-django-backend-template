@@ -23,18 +23,7 @@ class InSpecs__Register(Schema):
     name: str
     email: str
     password: str
-
-# class UserProfileResponse(Schema):
-#     id: int
-#     name: Optional[str]
-#     email: str
-#     is_admin: bool
-#     is_active: bool
-#     created_at: datetime
-#     updated_at: datetime
-#     access_token: str
-#     refresh_token: str
-
+    
 class ResponseSpecs(Schema):
     response_message: str
     response: dict
@@ -86,40 +75,41 @@ def register(request, payload: InSpecs__Register):
         })
 
         # log.info("auth tokens inside auth(register) controller", data=tokens)
-        log.info("auth_cookie", data=tokens.get("auth_cookie"))
+        # log.info("auth_cookie", data=tokens.get("auth_cookie"))
+        if not tokens:
+            return error_handler_500("Failed to generate authentication tokens")
 
-        if tokens:
-            # Update user with tokens
-            new_user.access_token = tokens.get('access_token')
-            new_user.refresh_token = tokens.get('refresh_token')
-            new_user.save()
+        # Update user with tokens
+        new_user.access_token = tokens.get('access_token')
+        new_user.refresh_token = tokens.get('refresh_token')
+        new_user.save()
 
-            response_data = JsonResponse({
-                "response_message": "User registered successfully",
-                "response": {
-                    "user_profile": {
-                        "id": new_user.id,
-                        "name": new_user.name,
-                        "email": new_user.email,
-                        "is_admin": new_user.is_admin,
-                        "is_active": new_user.is_active,
-                        "created_at": new_user.created_at,
-                        "updated_at": new_user.updated_at,
-                    },
-                    "access_token": tokens.get('access_token'),
-                    "refresh_token": tokens.get('refresh_token')
-                }
-            })
+        response_data = JsonResponse({
+            "response_message": "User registered successfully",
+            "response": {
+                "user_profile": {
+                    "id": new_user.id,
+                    "name": new_user.name,
+                    "email": new_user.email,
+                    "is_admin": new_user.is_admin,
+                    "is_active": new_user.is_active,
+                    "created_at": new_user.created_at,
+                    "updated_at": new_user.updated_at,
+                },
+                "access_token": tokens.get('access_token'),
+                "refresh_token": tokens.get('refresh_token')
+            }
+        })
 
-            # Deploy auth cookie
-            deploy_auth_cookie({
-                "response": response_data,
-                "auth_cookie": tokens.get('auth_cookie')
-            })
-            
-            return response_data
+        # Deploy auth cookie
+        deploy_auth_cookie({
+            "response": response_data,
+            "auth_cookie": tokens.get('auth_cookie')
+        })
+        
+        return response_data
 
-    except Exception as e:
+    except (ValueError, TypeError, AttributeError) as e:
         log.error("Error during registration", error=str(e), email=payload.email)
         return error_handler_500(e)
 
@@ -177,6 +167,6 @@ def login(request, payload: InSpecs__LogIn):
 
             return response_data
 
-    except Exception as e:
+    except (ValueError, TypeError, AttributeError) as e:
         log.error("Error during login", error=str(e), email=payload.email)
         return error_handler_500(e)
