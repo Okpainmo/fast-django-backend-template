@@ -45,7 +45,9 @@ class Auth_AccessMiddleware(MiddlewareMixin):
 
         # log.info("request path", path=request.path)
 
-        if any(request.path == path for path in excluded_paths__exact_checks) or any(request.path.startswith(path) for path in excluded_paths__starts_with):
+        if any(request.path == path for path in excluded_paths__exact_checks) or any(
+            request.path.startswith(path) for path in excluded_paths__starts_with
+        ):
             return None  # allow through
 
         # ==================================================================================
@@ -67,15 +69,17 @@ class Auth_AccessMiddleware(MiddlewareMixin):
             log.error(
                 "Request header data missing", email=email, has_authorization=bool(authorization)
             )
-            return error_handler_400("Email, and authorization header data must be provided on the request")
+            return error_handler_400(
+                "Email, and authorization header data must be provided on the request"
+            )
 
         # ==================================================================================
         # Since the session is still valid(i.e. the previous(session) middleware is passed is passed),
         # proceed to check for access_token status - and renew all tokens/access for the user.
         #
         # The extra check for access_token expiration might seem needless since the session is still active
-        # and we'll be renewing the access-token as a result, but knowing the access_token status is helpful, 
-        # as that can assist with triggering any relevant action and to track relevant data - if the 
+        # and we'll be renewing the access-token as a result, but knowing the access_token status is helpful,
+        # as that can assist with triggering any relevant action and to track relevant data - if the
         # token is expired.
         # ===================================================================================
         try:
@@ -105,7 +109,7 @@ class Auth_AccessMiddleware(MiddlewareMixin):
         except jwt.InvalidTokenError:
             log.error("Invalid token", token=token[:10] + "...")
             return error_handler_401("access denied - invalid token")
-        
+
         # now proceed to check for the user
         user = User.objects.filter(email=email).first()
 

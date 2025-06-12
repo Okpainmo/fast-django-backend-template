@@ -44,7 +44,9 @@ class Auth_SessionsMiddleware(MiddlewareMixin):
 
         # log.info("request path", path=request.path)
 
-        if any(request.path == path for path in excluded_paths__exact_checks) or any(request.path.startswith(path) for path in excluded_paths__starts_with):
+        if any(request.path == path for path in excluded_paths__exact_checks) or any(
+            request.path.startswith(path) for path in excluded_paths__starts_with
+        ):
             return None  # allow through
 
         # ==================================================================================
@@ -66,7 +68,9 @@ class Auth_SessionsMiddleware(MiddlewareMixin):
             log.error(
                 "Request header data missing", email=email, has_authorization=bool(authorization)
             )
-            return error_handler_400("Email, and authorization header data must be provided on the request")
+            return error_handler_400(
+                "Email, and authorization header data must be provided on the request"
+            )
 
         # ==================================================================================
         # OPTIONAL: further query on auth_cookie, to ensure it contains the correct user credential that was
@@ -130,4 +134,3 @@ class Auth_SessionsMiddleware(MiddlewareMixin):
         # ==================================================================================
 
         return None  # continue processing
-
