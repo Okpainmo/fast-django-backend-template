@@ -98,7 +98,7 @@ source env/Scripts/activate
 > linux/mac:
 
 ```shell
-source venv/bin/activate
+source env/bin/activate
 ```
 
 4. Check and ensure that the desired/created virtual environment is what you are currently logged on(especially in a case where the dependencies seem not to be getting installed, and/or if they seem not to be reflecting in the requirements file after installation - even after running `pip freeze > requirements.txt`).
@@ -118,7 +118,7 @@ pip install -r requirements.txt
 **or, with new version installations(ensure to delete the `requirement.txt` file first)**:
 
 ```bash
-pip install Django django-ninja python-dotenv psycopg2-binary gunicorn "uvicorn[standard]" black pylint pylint-django pre-commit PyJWT structlog[json]
+pip install Django django-ninja python-dotenv psycopg2 psycopg2-binary gunicorn "uvicorn[standard]" black pylint pylint-django pre-commit PyJWT structlog[json]
 # in progress
 ```
 
