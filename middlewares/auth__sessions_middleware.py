@@ -42,7 +42,7 @@ class Auth_SessionsMiddleware(MiddlewareMixin):
             "/api/",
         ]
 
-        log.info("request path", path=request.path)
+        # log.info("request path", path=request.path)
 
         if any(request.path == path for path in excluded_paths__exact_checks) or any(request.path.startswith(path) for path in excluded_paths__starts_with):
             return None  # allow through
