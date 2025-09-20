@@ -118,7 +118,7 @@ pip install -r requirements.txt
 **or, with new version installations(ensure to delete the `requirement.txt` file first)**:
 
 ```bash
-pip install Django django-ninja python-dotenv psycopg2 psycopg2-binary gunicorn "uvicorn[standard]" black pylint pylint-django pre-commit PyJWT structlog[json]
+pip install Django django-ninja python-dotenv psycopg2 psycopg2-binary gunicorn "uvicorn[standard]" black pylint pylint-django pre-commit PyJWT structlog[json] boto3
 # in progress
 ```
 
