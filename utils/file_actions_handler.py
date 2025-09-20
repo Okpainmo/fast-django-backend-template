@@ -33,9 +33,9 @@ def upload_file_to_s3(file, file_name):
         )
 
         print("file uploaded successfully")
-        print(f"{settings.AWS_S3_FILE_URL}{key}")
+        print(f"{settings.AWS_S3__BUCKET_BASE_URL}{key}")
 
-        return f"{settings.AWS_S3_FILE_URL}{key}"
+        return f"{settings.AWS_S3__BUCKET_BASE_URL}{key}"
 
     except (NoCredentialsError, PartialCredentialsError) as e:
         raise ValueError(f"Failed to upload file: {e}") from e
@@ -71,4 +71,4 @@ def get_public_file_url(file_key):
     Returns:
         The public URL of the file.
     """
-    return f"{settings.AWS_S3_FILE_URL}{file_key}"
+    return f"{settings.AWS_S3__BUCKET_BASE_URL}{file_key}"
